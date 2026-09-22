@@ -1,14 +1,19 @@
 <?php
 
-$host = "localhost";
-$banco = "gestao_animais";
-$usuario = "root";
-$senha = "alunoifro";
+if (file_exists(__DIR__ . "/local_env.php")) {
+    require_once __DIR__ . "/local_env.php";
+}
+
+$host = getenv("DB_HOST") ?: "localhost";
+$banco = getenv("DB_NAME") ?: "gestao_animais";
+$usuario = getenv("DB_USER") ?: "root";
+$senha = getenv("DB_PASS") !== false ? getenv("DB_PASS") : "";
+$porta = getenv("DB_PORT") ?: "3306";
 
 try {
 
     $pdo = new PDO(
-        "mysql:host=$host;dbname=$banco;charset=utf8mb4",
+        "mysql:host=$host;port=$porta;dbname=$banco;charset=utf8mb4",
         $usuario,
         $senha
     );

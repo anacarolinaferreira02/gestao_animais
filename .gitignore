@@ -1,0 +1,22 @@
+# Arquivos de credenciais e variáveis de ambiente locais
+config/local_env.php
+.env
+*.env.local
+
+# Arquivos de sistema operacional
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Editores e IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs e arquivos temporários
+*.log
+tmp/
+scratch/

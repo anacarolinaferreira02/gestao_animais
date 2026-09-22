@@ -57,7 +57,7 @@ $totalAdocao = $pdo
         🚨 Ocorrências
     </a>
 
-    <?php if (isset($_SESSION["tipo"]) && $_SESSION["tipo"] === "admin"): ?>
+    <?php if (isset($_SESSION["usuario_tipo"]) && $_SESSION["usuario_tipo"] === "admin"): ?>
 
         <a href="admin/index.php" class="admin-button">
             ⚙️ Painel Admin

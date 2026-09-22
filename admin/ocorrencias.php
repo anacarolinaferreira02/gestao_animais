@@ -220,7 +220,7 @@ alt="Animal">
 
 <a
 class="btn-small"
-href="verificar_ocorrencia.php?id=<?= $o["id"] ?>">
+href="verificar_ocorrencias.php?id=<?= $o["id"] ?>">
 
 Analisar
 
