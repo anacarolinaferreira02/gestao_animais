@@ -1,6 +1,5 @@
--- Script de Criação do Banco de Dados - Sistema Minha Patinha
-CREATE DATABASE IF NOT EXISTS gestao_animais CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE gestao_animais;
+-- Script de Criação das Tabelas - Sistema Minha Patinha
+-- Obs: Selecione o seu banco de dados no phpMyAdmin antes de importar
 
 -- 1. Tabela de Usuários
 CREATE TABLE IF NOT EXISTS usuarios (
@@ -54,5 +53,5 @@ CREATE TABLE IF NOT EXISTS ocorrencias (
 -- Usuário Administrador de Teste Inicial (Senha: admin123)
 -- Hash bcrypt gerado com password_hash('admin123', PASSWORD_DEFAULT)
 INSERT INTO usuarios (id, nome, email, senha, tipo) 
-VALUES (1, 'Administrador do Sistema', 'admin@minhpatinha.com', '$2y$10$w0dE0vYgI23z9g4o6P1nluE8tN6lV5hD5vGf7e9h0j1k2l3m4n5o6', 'admin')
-ON DUPLICATE KEY UPDATE id=id;
+VALUES (1, 'Administrador do Sistema', 'admin@minhpatinha.com', '$2y$10$4oOSq4x4nPWqDWvrOQabEeX43jPKAO3b38s1Y0Arp.tABepiVwETu', 'admin')
+ON DUPLICATE KEY UPDATE senha='$2y$10$4oOSq4x4nPWqDWvrOQabEeX43jPKAO3b38s1Y0Arp.tABepiVwETu';

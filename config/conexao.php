@@ -1,14 +1,14 @@
 <?php
 
-if (file_exists(__DIR__ . "/local_env.php")) {
-    require_once __DIR__ . "/local_env.php";
-}
+$host = getenv("DB_HOST") ?: ($_ENV["DB_HOST"] ?? "localhost");
+$banco = getenv("DB_NAME") ?: ($_ENV["DB_NAME"] ?? "gestao_animais");
+$usuario = getenv("DB_USER") ?: ($_ENV["DB_USER"] ?? "root");
+$senha = getenv("DB_PASS") !== false && getenv("DB_PASS") !== "" ? getenv("DB_PASS") : ($_ENV["DB_PASS"] ?? "");
+$porta = getenv("DB_PORT") ?: ($_ENV["DB_PORT"] ?? "3306");
 
-$host = getenv("DB_HOST") ?: "localhost";
-$banco = getenv("DB_NAME") ?: "gestao_animais";
-$usuario = getenv("DB_USER") ?: "root";
-$senha = getenv("DB_PASS") !== false ? getenv("DB_PASS") : "";
-$porta = getenv("DB_PORT") ?: "3306";
+if (file_exists(__DIR__ . "/local_env.php")) {
+    require __DIR__ . "/local_env.php";
+}
 
 try {
 
