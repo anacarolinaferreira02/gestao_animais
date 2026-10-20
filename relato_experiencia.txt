@@ -1,0 +1,119 @@
+INSTITUTO FEDERAL DE RONDONIA
+Campus Porto Velho Calama - Desenvolvimento de Sistemas
+ESTRUTURA DE RELATO DE EXPERIENCIA
+Guia e template preenchido para relatar o processo de desenvolver um sistema com apoio de Inteligencia Artificial
+
+======================================================================
+IDENTIFICACAO
+======================================================================
+Titulo do Relato: Desenvolvendo o Sistema Minha Patinha com Apoio de Inteligencia Artificial: Um Relato de Experiencia no Ensino Tecnico
+Autora: Ana Carolina Ferreira
+Instituicao / Curso / Componente Curricular: Instituto Federal de Educacao, Ciencia e Tecnologia de Rondonia (IFRO) - Campus Porto Velho Calama / Curso Tecnico em Informatica Integrado ao Ensino Medio / Desenvolvimento de Sistemas
+Professor Orientador: Prof. Rafael Pitwak
+Data: Outubro de 2026
+Repositorio no GitHub: https://github.com/anacarolinaferreira02/gestao_animais
+Aplicacao em Producao: http://gestao-animais.infinityfreeapp.com
+
+======================================================================
+RESUMO
+======================================================================
+Este trabalho relata a experiencia pratica do desenvolvimento do sistema web Minha Patinha, concebido para gerenciar resgates comunitarios georreferenciados de animais perdidos e em situacao de rua em Porto Velho (RO), alem de centralizar a gestao clinica e os processos de adocao responsavel de abrigos de animais. O projeto foi executado sob a metodologia pedagogica de desenvolvimento assistido por Inteligencia Artificial estabelecida no componente curricular de Desenvolvimento de Sistemas do IFRO Campus Porto Velho Calama. O percurso metodologico seguiu as fases propostas na apostila da disciplina: elaboracao da especificacao de requisitos estruturada (Anexo A), isolamento de credenciais locais de banco de dados, desenvolvimento iterativo em PHP 8 com PDO e MySQL com suporte do agente Google Antigravity, testes de integridade, auditoria de seguranca eliminatoria (Anexo B) e implantacao no provedor gratuito InfinityFree com versionamento continuo no GitHub. O principal desafio enfrentado residiu na necessidade de intervencao humana critica para rejeitar modelos conceituais simplificados gerados pela IA e contornar inconsistencias logicas de variaveis de sessao e links de rotas. A vivencia demonstrou que o desenvolvimento com IA altera substancialmente a atuacao discente: a tarefa manual de digitacao de codigo e secundarizada pela capacidade analitica de arquitetura, validacao de regras de negocio e postura de supervisao tecnica ativa.
+
+Palavras-chave: Inteligencia Artificial; Desenvolvimento de Sistemas; Ensino Tecnico; Auditoria de Software; Protecao Animal.
+
+======================================================================
+1. INTRODUCAO
+======================================================================
+O municipio de Porto Velho, capital do estado de Rondonia, convive historicamente com desafios estruturais relativos ao abandono de animais domesticos e a escassez de canais centralizados para localizacao agil de animais perdidos. Diante desse cenario de relevancia social, surgiu a proposta do sistema web Minha Patinha, idealizado para conectar cidadaos e protetores independentes por meio de chamados de socorro (SOS) georreferenciados em mapa interativo, assegurando simultaneamente o controle cadastral, o prontuario veterinario e o fluxo formal de adocao responsavel dos animais acolhidos.
+
+O objetivo precipuo deste relato de experiencia nao se resume a apresentacao tecnica das funcionalidades do sistema, mas concentra-se em analisar e refletir criticamente sobre o processo formativo de projetar, codificar, depurar e publicar uma aplicacao web com o auxilio de um agente de Inteligencia Artificial generativa (Google Antigravity). Todo o processo foi balizado por um metodo explicito de engenharia de software fundamentado em sete fases (planejamento, configuracao, desenvolvimento modular, testes, correcao de defeitos, auditoria de seguranca e deploy em nuvem).
+
+Registrar academicamente essa vivencia e relevante porque o desenvolvimento assistido por modelos generativos de linguagem representa uma profunda ruptura de paradigma na educacao profissional e tecnologica. Longe de caracterizar mero automatismo, a pratica em ambiente escolar revela como os estudantes precisam desenvolver maturidade critica para atuar como auditores, decisores e avaliadores do codigo gerado pela maquina.
+
+======================================================================
+2. REFERENCIAL TEORICO
+======================================================================
+O desenvolvimento de software assistido por Inteligencia Artificial constitui uma abordagem em que modelos de linguagem de grande escala (LLMs), integrados a ambientes interativos ou IDEs, atuam como pares colaborativos de programacao (pair programming). Ao contrario das ferramentas tradicionais de preenchimento automatico de sintaxe, os agentes contemporaneos sao capazes de interpretar intencoes expressas em linguagem natural, analisar arvores de dependencia de projetos e sintetizar blocos completos de codigo backend, interfaces de usuario e instrucoes de banco de dados.
+
+Essa transformacao modifica radicalmente a rotina do desenvolvedor. Conforme sistematizado por Pitwak (2026), na metodologia "Programar com IA de forma responsavel", o estudante deixa de operar primordialmente como um digitador de comandos e passa a desempenhar as funcoes de arquiteto de software, especificador de requisitos e auditor de qualidade. O ato de programar passa a demandar dominio da engenharia de prompts, compreensao conceitual rigorosa dos mecanismos da linguagem e verificacao continua das solucoes propostas.
+
+O referencial do componente adverte enfaticamente para os riscos inerentes a confianca cega na IA: geracao de codigos vulneraveis a injecao de SQL, vazamento acidental de credenciais sensiveis em repositorios publicos e alucinacoes logicas suteis em que a IA gera rotas ou parametros que nao correspondem a realidade da aplicacao. Por essa razao, a metodologia adotada impoe criterios eliminatorios de avaliacao (Anexo B), exigindo dos alunos auditorias documentadas e o registro minucioso de todas as correcoes e divergencias tecnicas em um historico estruturado de alteracoes (CHANGELOG).
+
+======================================================================
+3. METODOLOGIA / PERCURSO DA EXPERIENCIA
+======================================================================
+A conducao pratica do projeto desenvolveu-se ao longo do terceiro bimestre letivo, estruturada rigorosamente nas fases preconizadas na apostila da disciplina:
+
+1. Fase 1 - Planejamento e Especificacao Tecnica (spec.md): Definicao previa e formal dos 8 eixos obrigatorios estabelecidos no Anexo A (Objetivo, Perfis de Usuarios, Casos de Uso UC01 a UC14, Requisitos Funcionais RF01 a RF16, Requisitos Nao Funcionais de seguranca e usabilidade, Modelo Entidade-Relacionamento com 19 tabelas reais, Criterios de Aceite no padrao "Dado que / Quando / Entao" e Decisao de Stack/Deploy).
+
+2. Fase 2 - Versionamento e Gestao de Ambiente: Inicializacao do repositorio no Git e publicacao remota no GitHub (anacarolinaferreira02/gestao_animais). Configuracao minuciosa do arquivo .gitignore para impedir que arquivos temporarios do sistema operacional e credenciais locais vazassem para a nuvem.
+
+3. Fase 3 e 4 - Desenvolvimento Modular com o Google Antigravity: Implementacao da arquitetura backend modular em PHP 8 orientada a objetos PDO, modelagem e manipulacao do banco de dados relacional MySQL, criacao das views em HTML5/CSS3 responsivo e integracao da biblioteca Leaflet.js sobre os mapas publicos do OpenStreetMap.
+
+4. Fase 5 - Testes, Auditoria e Registro de Decisoes (CHANGELOG.md): Realizacao de testes de caixa preta com as regras de negocio e checagem ponto a ponto do Checklist de Seguranca do Anexo B da apostila, documentando todas as correcoes aplicadas e as ocasioes em que as decisoes humanas divergiram das propostas da IA.
+
+5. Fase 6 - Deploy e Homologacao em Producao: Publicacao bem-sucedida da aplicacao no provedor de hospedagem em nuvem gratuita InfinityFree, com importacao do banco de dados via phpMyAdmin remoto e homologacao de funcionamento local em ambiente Windows/XAMPP.
+
+6. Fase 7 - Consolidacao Documental: Geracao dos artefatos tecnicos finais em multiplos formatos legiveis (Markdown, PDF limpo sem grades e texto puro TXT) e relatorio reflexivo final.
+
+Quanto ao nivel de autonomia do agente no Google Antigravity, optou-se expressamente pelo modelo de autonomia supervisionada (Human-in-the-loop). A cada bloco de codigo ou script SQL sugerido pela ferramenta, realizou-se leitura criteriosa do diff proposto antes da aprovacao, evitando comandos automaticos que pudessem desestruturar a arquitetura modular estabelecida no projeto.
+
+======================================================================
+4. RELATO DA EXPERIENCIA
+======================================================================
+Durante o ciclo de desenvolvimento, a interacao com o assistente inteligente alternou entre momentos de elevado ganho de produtividade e episodios criticos em que a fiscalizacao humana foi decisiva para o sucesso do projeto.
+
+Um primeiro momento marcante ocorreu durante a modelagem do banco de dados na Fase 1. Ao solicitar que a IA estruturasse o Modelo Entidade-Relacionamento do sistema, o agente gerou uma proposta minimalista composta por apenas tres tabelas genericas (usuarios, animais, ocorrencias). Embora essa estrutura atendesse aos fluxos basicos de resgate na rua, ela ignorava completamente o escopo de gestao do abrigo, inviabilizando prontuarios clinicos veterinarios, controle de vacinas com datas de reforco, exames e acompanhamento de adocoes. A intervencao humana foi imediata: a proposta da IA foi expressamente rejeitada e forneceu-se como instrucao uma diretriz detalhada com os atributos reais necessarios para compor os cinco modulos de negocio (19 tabelas relacionais com chaves estrangeiras integras).
+
+Outro momento de rica aprendizagem deu-se na depuracao das permissoes de acesso ao painel administrativo. Na codificacao inicial, o agente gerou o fluxo de autenticacao em login.php gravando o tipo do usuario na sessao como $_SESSION["usuario_tipo"] = $usuario["tipo"]. Contudo, ao implementar a tela dashboard.php, a IA programou a validacao da barra de navegacao consultando a variavel $_SESSION["tipo"]. Em decorrencia dessa divergencia de nomenclatura, os administradores autenticados nao conseguiam visualizar o botao de acesso ao /admin/. A estudante identificou o erro por meio da inspecao de variaveis globais de sessao no navegador e corrigiu a instrucao condicional.
+
+Ademais, na fila de moderacao de ocorrencias, o hiperlink gerado no arquivo admin/ocorrencias.php direcionava para verificar_ocorrencia.php (no singular), enquanto o arquivo existente no diretorio fisico denominava-se verificar_ocorrencias.php (no plural). Diante do erro 404, a IA sugeriu apressadamente renomear o arquivo do disco para o singular; contudo, a estudante optou por preservar o padrao de nomenclatura adotado em todo o projeto (animais.php, usuarios.php, ocorrencias.php) e alterou cirurgicamente o link na view, demonstrando a importancia de manter a consistencia arquitetural acima da conveniencia imediata.
+
+Por fim, no ajuste do ambiente de conexao local, constatou-se que o script config/conexao.php lia as variaveis de ambiente com getenv("DB_PASS") antes de chamar o arquivo config/local_env.php. Quando o MySQL local do XAMPP exigia senha (alunoifro), a tentativa de conexao falhava com o codigo de erro 1045 Access denied. A estudante reordenou a estrutura logica do script, forcando a importacao do arquivo de configuracao no inicio da execucao, garantindo conexao estavel tanto no ambiente escolar quanto em producao na nuvem.
+
+======================================================================
+5. DIFICULDADES E DESAFIOS ENFRENTADOS
+======================================================================
+A conducao do trabalho expos dificuldades tecnicas e metodologicas que representaram os pontos de maior consolidacao de competencias do semestre:
+
+1. Desafio de Seguranca e o Criterio Eliminatorio de Senhas (Anexo B):
+   - O que aconteceu: Na primeira versao gerada pelo assistente, o arquivo de conexao PDO continha o usuario root e a senha local gravados diretamente em texto plano no codigo-fonte. Pelo regulamento da atividade avaliativa, a presenca de credenciais sensiveis versionadas no GitHub acarretaria reprovacao sumaria do projeto.
+   - Percepcao: Ao revisar o checklist do Anexo B antes de efetuar o commit inicial, a aluna identificou a vulnerabilidade eliminatoria.
+   - Resolucao: Implementou-se uma arquitetura baseada em variaveis de ambiente, criando o template seguro .env.example, criando o script de ambiente local protegido config/local_env.php e adicionando-o categoricamente ao arquivo .gitignore.
+
+2. Limitacoes de Infraestrutura no Provedor Remoto Gratuito (Deploy no InfinityFree):
+   - O que aconteceu: Ao tentar executar o arquivo original schema.sql via phpMyAdmin no servidor do InfinityFree, o MySQL remoto rejeitou comandos avancados de criacao de rotinas, views parametrizadas e certas restricoes de tabelas por politicas de compartilhamento de recursos da hospedagem gratuita.
+   - Percepcao: O banco remoto retornava codigos de erro de permissao insuficiente (Access denied for procedure / DDL limitations), impedindo a inicializacao da base remota.
+   - Resolucao: A estudante criou um script SQL derivado e otimizado denominado importar_infinityfree.sql, compativel com a infraestrutura remota compartilhada, permitindo a correta subida das tabelas e do usuario administrador padrao sem violar as diretrizes do provedor.
+
+3. Compreensao da Geolocalizacao e Captura de Coordenadas (Leaflet.js):
+   - O que aconteceu: A captura da posicao do animal no mapa dependia da interacao do usuario com a API de mapas do Leaflet. Inicialmente, a logica gerada pela IA disparava multiplos marcadores concorrentes no mapa a cada toque na tela do smartphone, gravando valores nulos de latitude e longitude no formulario caso o usuario clicasse fora do raio delimitado.
+   - Percepcao: Em testes funcionais manuais, as ocorrencias salvas nao apareciam no mapa porque os campos de coordenadas estavam vazios no banco.
+   - Resolucao: A estudante analisou o codigo do script JavaScript (script.js), compreendeu o ciclo de eventos map.on('click') e implementou uma rotina que remove marcadores anteriores, atualiza os campos ocultos de input com precisao decimal (toFixed(8)) e foca automaticamente o mapa na localizacao selecionada.
+
+======================================================================
+6. RESULTADOS E REFLEXOES
+======================================================================
+A utilizacao de inteligencia artificial generativa aliada a um roteiro metodologico rigido produziu resultados expressivos. A plataforma Minha Patinha atingiu plenamente seus objetivos operacionais: esta homologada e acessivel publicamente via web no dominio do InfinityFree, roda com estabilidade no ambiente local sob o XAMPP no Windows, possui codigo versionado no GitHub e conta com especificacao e documentacao de alteracoes concluidas.
+
+Em termos de processo de aprendizagem, sobressairam pontos positivos claros e reflexoes criticas:
+- O que funcionou com excelencia: A velocidade na geracao de codigo estrutural e formularios repetitivos foi notavel. Rotinas que demandariam dias de digitacao manual (como tabelas HTML, campos de formularios com validacoes de regex e estrutura base de classes de conexao) foram elaboradas em minutos, permitindo dedicar tempo substancial ao desenho de regras de negocio, testes de seguranca e usabilidade movel.
+- O que seria feito de forma diferente: Numa oportunidade futura, o Modelo Entidade-Relacionamento completo (as 19 tabelas) seria estipulado e validado antes mesmo do primeiro comando de programacao do backend. O retrabalho de expansao das tabelas intermediarias no decorrer do projeto ensinou que a falta de um escopo de dados inicial detalhado onera a manutencao do codigo.
+- Comparacao com o processo tradicional sem IA: Em relacao aos bimestres iniciais do curso tecnico, programar com IA revelou-se paradoxalmente mais veloz e cognitivamente mais exigente. Escrever o codigo a mao exige lembrar sintaxes exatas de funcoes e palavras-chave da linguagem; programar com IA, por outro lado, exige leitura critica profunda, capacidade de investigacao de bugs complexos, visao arquitetural holistica e rigor investigativo. A estudante precisou saber muito mais do que apenas escrever PHP: precisou entender seguranca defensiva, isolamento de variaveis, integridade de sessoes e parametrizacao SQL para nao ser enganada por solucoes aparentemente corretas, porem estruturalmente frageis.
+
+======================================================================
+7. CONSIDERACOES FINAIS
+======================================================================
+A experiencia vivenciada no desenvolvimento do sistema Minha Patinha demonstrou de maneira categorica que a Inteligencia Artificial nao substitui a formacao tecnica do desenvolvedor, mas eleva o nivel intelectual de sua atuacao pratica. O metodo delineado pelo Professor Rafael Pitwak provou que a inteligencia artificial, quando submetida a um processo disciplinado de planejamento e auditoria humana, capacita estudantes do ensino tecnico a conceber e entregar aplicacoes completas, funcionais e seguras.
+
+Como recomendacao para as futuras turmas de Informatica que vivenciarem este componente curricular, sugere-se nunca delegar as decisoes arquiteturais a IA: formule primeiro a especificacao tecnica em detalhe, questione cada arquivo gerado antes de executa-lo, audite periodicamente o repositorio contra vazamento de credenciais e exerca a responsabilidade humana sobre cada linha de codigo entregue.
+
+======================================================================
+REFERENCIAS
+======================================================================
+- ANTIGRAVITY. Google Antigravity Documentation and Architecture Guide. Mountain View: Google DeepMind, 2026.
+- ASSOCIACAO BRASILEIRA DE NORMAS TECNICAS (ABNT). NBR 6022: Informacao e documentacao: Artigo em publicacao periodica tecnica e/ou cientifica: Apresentacao. Rio de Janeiro: ABNT, 2018.
+- LEAFLET. Leaflet: An open-source JavaScript library for mobile-friendly interactive maps. Disponivel em: <https://leafletjs.com/>. Acesso em: 20 out. 2026.
+- PHP GROUP. PHP: Hypertext Preprocessor Documentation (PHP 8 with PDO). Disponivel em: <https://www.php.net/manual/pt_BR/>. Acesso em: 20 out. 2026.
+- PITWAK, Rafael. Programar com IA de forma responsavel: Guia pratico para o desenvolvimento consciente de software. Porto Velho: Instituto Federal de Educacao, Ciencia e Tecnologia de Rondonia (IFRO), 2026.
+- THE MARIADB/MYSQL FOUNDATION. MySQL 8.0 Reference Manual: Relational Database Management System. 2026.
