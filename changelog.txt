@@ -1,0 +1,89 @@
+REGISTRO DE DECISOES E ALTERACOES (CHANGELOG)
+PROJETO: MINHA PATINHA - GESTAO DE ANIMAIS E OCORRENCIAS SOS
+
+INSTITUTO FEDERAL DE EDUCACAO, CIENCIA E TECNOLOGIA DE RONDONIA - IFRO CAMPUS PORTO VELHO CALAMA
+CURSO TECNICO EM INFORMATICA INTEGRADO AO ENSINO MEDIO - COMPONENTE: DESENVOLVIMENTO DE SISTEMAS
+PROFESSOR: RAFAEL PITWAK
+ALUNA: ANA CAROLINA FERREIRA
+REPOSITORIO OFICIAL NO GITHUB: https://github.com/anacarolinaferreira02/gestao_animais
+APLICACAO EM PRODUCAO (NUVEM): http://gestao-animais.infinityfreeapp.com
+
+Este documento registra todas as decisoes tecnicas, revisoes humanas sobre o que o agente de inteligencia artificial (Google Antigravity) propos, correcoes de bugs, auditorias de seguranca e evolucoes arquiteturais do sistema, em estrita conformidade com o metodo da apostila "Programar com IA de forma responsavel" (Fases 1 a 7 e Anexos A e B) do Professor Rafael Pitwak.
+
+======================================================================
+[1.4.0] - 2026-10-20
+VERSAO FINAL DE ENTREGA: CONSOLIDACAO OPERACIONAL, ROTEIRO DE EXECUCAO LOCAL E NUVEM
+======================================================================
+- Documentacao de Funcionamento Ponta a Ponta:
+  * Inclusao detalhada dos dois fluxos operacionais completos na documentacao oficial:
+    1. Fluxo do Cidadao: Cadastro, autenticacao com Bcrypt, abertura de chamado SOS com foto e marcacao de coordenadas no mapa interativo (Leaflet.js / OpenStreetMap), acompanhamento de moderacao em "Minhas Ocorrencias" e envio de proposta de adocao responsavel.
+    2. Fluxo da Equipe do Abrigo: Painel restrito /admin/, moderacao de ocorrencias SOS (com aprovacao imediata para o mapa ou rejeicao com justificativa obrigatoria), prontuario clinico veterinario (consultas, vacinas com reforco, exames e receitas), controle de pesos e vistorias pos-adocao.
+
+- Roteiro Exato de Execucao no Computador Local (XAMPP):
+  * Documentacao passo a passo de como a aplicacao roda no ambiente de desenvolvimento do aluno:
+    - Inicializacao dos modulos Apache e MySQL via XAMPP Control Panel no Windows.
+    - Estrutura de arquivos em C:\xampp\htdocs\gestao_animais.
+    - Importacao das tabelas e administrador padrao pelo phpMyAdmin local (http://localhost/phpmyadmin) a partir do arquivo schema.sql.
+    - Execucao e teste no navegador em http://localhost/gestao_animais/index.php e script de teste de banco teste.php.
+
+- Refatoracao da Conexao PDO (config/conexao.php):
+  * Problema Detectado em Testes Locais: O script config/conexao.php realizava a leitura de getenv("DB_PASS") antes da inclusao de config/local_env.php. Caso o MySQL do XAMPP exigisse senha local (alunoifro), a variavel era atribuida como string vazia antes do putenv(), gerando erro 1045 Access denied.
+  * Solucao Implementada: Reordenamento cirurgico da checagem: o arquivo config/local_env.php agora e carregado no topo absoluto do script, garantindo que as variaveis de ambiente locais sejam registradas antes de qualquer avaliacao de conexao pelo PDO.
+  * Resultado: Conexao local validada com 100% de sucesso via teste.php sem expor senhas no codigo versionado.
+
+- Roteiro de Producao na Nuvem (InfinityFree):
+  * Documentacao completa da hospedagem em nuvem: dominio http://gestao-animais.infinityfreeapp.com, banco remoto sql311.infinityfree.com (if0_42984854_gestao_animais), variaveis de ambiente configuradas no servidor e script de banco importar_infinityfree.sql.
+
+- Geracao de Entregaveis Finais:
+  * Exportacao da spec e do changelog em formatos Markdown (.md), PDF (.pdf) e texto puro (.txt) sincronizados tanto no diretorio do projeto (C:\xampp\htdocs\gestao_animais) quanto na pasta de documentos da aluna (C:\Users\Aluno\Documents).
+
+======================================================================
+[1.3.0] - 2026-10-20
+EXPANSAO DO MODELO DE DADOS E COBERTURA CLINICA COMPLETA
+======================================================================
+- Decisao Arquitetural: Ampliacao do escopo do sistema para alem do modulo de resgate SOS, integrando a gestao clinica completa do abrigo e o ciclo de adocao responsavel com acompanhamento pos-adocao.
+- Estruturacao do Banco de Dados (19 Tabelas Reais):
+  * Modulo de Usuarios e Comunicacao: usuarios, notificacoes.
+  * Modulo de Animais e Identificacao: animais, fotos_animais, historico_status_animal.
+  * Modulo SOS e Resgate Georreferenciado: ocorrencias_sos, historico_status_sos.
+  * Modulo de Prontuario Clinico Veterinario: consultas, exames, vacinas, medicamentos, alergias, pesos_animais, historico_medico, saude_animais.
+  * Modulo de Adocoes e Vistorias: adocoes, entrevistas_adocao, acompanhamentos_adocao.
+- Revisao Humana sobre a IA: 
+  * A IA inicialmente havia proposto um DER resumido de apenas 3 tabelas (usuarios, animais, ocorrencias). 
+  * Decisao: Rejeitada a proposta simplificada e exigida a inclusao das tabelas reais de prontuario e adocao para refletir com fidelidade as regras de negocio de um abrigo real.
+- Atualizacao da Spec: Secoes 3 (Casos de uso), 4 (Requisitos funcionais), 6 (Modelo de dados) e 7 (Criterios de aceite) reescritas para cobrir integralmente os fluxos clinicos e de adocao.
+
+======================================================================
+[1.2.0] - 2026-09-22
+SEGURANCA DA APLICACAO E ISOLAMENTO DE CREDENCIAIS (CHECKLIST DO ANEXO B)
+======================================================================
+- Auditoria de Seguranca (Eliminatoria da Atividade):
+  * Problema: O arquivo original config/conexao.php continha o usuario root e a senha alunoifro diretamente em texto puro no codigo-fonte, o que violaria o criterio de reprovacao imediata ao subir para o GitHub.
+  * Intervencao e Solucao: Refatoracao da conexao PDO para utilizar getenv() e $_ENV (DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_PORT).
+  * Isolamento de Ambiente Local: Criacao do arquivo config/local_env.php e inclusao estrita no .gitignore para permitir testes locais no XAMPP sem vazar senhas.
+  * Deploy em Nuvem: Criacao do arquivo de exemplo .env.example e do script DDL schema.sql (e importar_infinityfree.sql) para importacao sem erros de permissao no phpMyAdmin do servidor remoto.
+
+======================================================================
+[1.1.0] - 2026-09-22
+DIAGNOSTICO E CORRECAO DE INCONSISTENCIAS CRITICAS NO CODIGO
+======================================================================
+- Correcao da Visibilidade do Painel Administrativo:
+  * Causa Raiz: O arquivo login.php gravava o tipo do usuario na sessao como $_SESSION["usuario_tipo"] = $usuario["tipo"], mas a barra de navegacao de dashboard.php verificava $_SESSION["tipo"]. Administradores logados nao conseguiam visualizar o botao "Painel Admin".
+  * Correcao: Ajustado dashboard.php para checar $_SESSION["usuario_tipo"] === "admin".
+- Correcao de Erro 404 na Fila de Moderacao:
+  * Causa Raiz: O link de analise no arquivo admin/ocorrencias.php apontava para verificar_ocorrencia.php (no singular), enquanto o arquivo real no disco chamava-se verificar_ocorrencias.php (no plural).
+  * Correcao: Link ajustado no arquivo, restabelecendo o fluxo de analise e aprovacao de chamados SOS.
+- Revisao Humana de Codigo: A IA inicialmente propos renomear o arquivo no disco; a decisao humana adotada foi manter o padrao de pluralidade de arquivos do projeto (animais.php, ocorrencias.php, usuarios.php) e corrigir apenas o hiperlink na view, mantendo a consistencia do padrao de nomenclatura.
+
+======================================================================
+[1.0.0] - 2026-09-22
+PLANEJAMENTO INICIAL, VERSIONAMENTO E DEPLOY
+======================================================================
+- Elaboracao da Spec Inicial (Fase 1): Levantamento das 8 secoes obrigatorias conforme Anexo A da apostila (Objetivo, Usuarios, Casos de Uso, RFs, RNFs, DER simples, Criterios de Aceite no formato "Dado que/Quando/Entao", e Decisao de Stack/Deploy).
+- Versionamento no Git e GitHub (Fase 2):
+  * Criacao do repositorio publico: https://github.com/anacarolinaferreira02/gestao_animais.
+  * Configuracao do .gitignore eliminando cache do SO (Thumbs.db, .DS_Store) e arquivos de ambiente sensiveis.
+  * Primeiro commit com historico real de desenvolvimento da Fase 2 a Fase 6.
+- Deploy em Producao (Fase 6):
+  * Publicacao no provedor gratuito InfinityFree no dominio ativo http://gestao-animais.infinityfreeapp.com.
+  * Configuracao do banco de dados remoto MySQL e importacao com sucesso das tabelas e do administrador padrao via phpMyAdmin.

@@ -1,0 +1,291 @@
+ESPECIFICACAO DO SISTEMA (SPEC)
+PROJETO: MINHA PATINHA - GESTAO DE ANIMAIS E OCORRENCIAS SOS
+
+INSTITUTO FEDERAL DE EDUCACAO, CIENCIA E TECNOLOGIA DE RONDONIA - IFRO CAMPUS PORTO VELHO CALAMA
+CURSO TECNICO EM INFORMATICA INTEGRADO AO ENSINO MEDIO - COMPONENTE: DESENVOLVIMENTO DE SISTEMAS
+PROFESSOR: RAFAEL PITWAK
+ALUNA: ANA CAROLINA FERREIRA
+REPOSITORIO OFICIAL NO GITHUB: https://github.com/anacarolinaferreira02/gestao_animais
+APLICACAO EM PRODUCAO (NUVEM): http://gestao-animais.infinityfreeapp.com
+
+======================================================================
+1. OBJETIVO
+======================================================================
+O Minha Patinha e um sistema web voltado para cidadaos, protetores independentes e abrigos de animais na cidade de Porto Velho (RO). O objetivo primordial da plataforma e agilizar o resgate de animais perdidos e em situacao de vulnerabilidade atraves de chamados georreferenciados (SOS) com coordenadas geograficas exatas e fotos do local.
+
+Alem do modulo de socorro imediato, o sistema centraliza e organiza a rotina operacional do abrigo de animais, fornecendo controle cadastral completo, prontuario clinico veterinario (consultas, exames, vacinas, medicacoes e evolucao de peso) e gestao integrada de todo o ciclo de adocao responsavel (solicitacao, entrevistas de perfil e acompanhamento pos-adocao). Com moderacao ativa da equipe antes da publicacao no mapa interativo, a plataforma garante a veracidade das informacoes, combate o abandono e fortalece a rede de protecao animal no municipio.
+
+======================================================================
+2. USUARIOS
+======================================================================
+O sistema atende a dois perfis principais de usuarios:
+
+- Cidadao (Usuario Comum / Adotante):
+Pode se cadastrar livremente com nome, e-mail, telefone e senha; efetuar login e logout; registrar chamados SOS de animais perdidos ou encontrados anexando fotos e marcando o ponto exato no mapa; acompanhar o status de moderacao de suas ocorrencias na aba "Minhas Ocorrencias" (com visualizacao do motivo caso o chamado seja rejeitado); explorar o mapa publico interativo de ocorrencias aprovadas; navegar pelo catalogo de animais acolhidos pelo abrigo; e submeter solicitacoes formais de adocao preenchendo o questionario de aptidao.
+
+- Administrador (Protetor / Equipe do Abrigo):
+Possui acesso restrito ao painel administrativo (/admin); gerencia a fila de moderacao de ocorrencias SOS, avaliando as informacoes e podendo aprovar o chamado (disponibilizando-o imediatamente no mapa publico) ou rejeita-lo informando obrigatoriamente a justificativa; cadastra, edita e gerencia os animais acolhidos pela organizacao; registra o prontuario de saude completo (consultas, vacinas, laudos de exames, prescricoes e pesagens); gerencia as solicitacoes de adocao recebidas, agendando entrevistas e aprovando termos; realiza acompanhamentos pos-adocao com fotos do animal no novo lar; e visualiza a relacao geral de usuarios cadastrados no sistema.
+
+======================================================================
+3. CASOS DE USO PRINCIPAIS
+======================================================================
+- UC01: Cadastrar novo usuario comum com criptografia Bcrypt.
+- UC02: Autenticar usuario (login) e encerrar sessao ativa com seguranca (logout).
+- UC03: Registrar ocorrencia SOS de animal perdido ou encontrado com coordenadas de latitude/longitude e foto.
+- UC04: Consultar minhas ocorrencias e acompanhar status de analise e eventuais justificativas de recusa.
+- UC05: Visualizar mapa interativo publico com marcadores georreferenciados de ocorrencias aprovadas.
+- UC06: Avaliar ocorrencia pendente na moderacao (aprovar para o mapa ou rejeitar com justificativa obrigatoria).
+- UC07: Cadastrar, editar e gerenciar fichas de animais acolhidos no abrigo com galeria de fotos.
+- UC08: Registrar prontuario clinico individual (consultas veterinarias, laudos de exames, prescricoes e alergias).
+- UC09: Controlar carteira de vacinacao com registro de imunizacao e calculo de data da proxima dose.
+- UC10: Registrar evolucao de pesagens periodicas para acompanhamento da saude do animal.
+- UC11: Consultar catalogo de animais disponiveis para adocao e submeter formulario de interesse.
+- UC12: Analisar pedidos de adocao, agendar entrevistas de perfil e registrar termos de aprovacao/reprovacao.
+- UC13: Realizar acompanhamento pos-adocao com registro de situacao e fotos de vistoria no novo lar.
+- UC14: Consultar listagem geral de usuarios cadastrados na plataforma.
+
+======================================================================
+4. REQUISITOS FUNCIONAIS (RF)
+======================================================================
+- RF01: O sistema deve permitir o cadastro de novos usuarios informando nome, e-mail unico, telefone e senha de acesso.
+- RF02: O sistema deve autenticar usuarios por meio de e-mail e senha, direcionando para o Dashboard correspondente ao seu nivel de acesso (usuario ou admin).
+- RF03: O sistema deve permitir encerramento seguro da sessao ativa (logout), limpando todos os dados de sessao do servidor.
+- RF04: O sistema deve permitir que usuarios autenticados registrem ocorrencias SOS (tipo "Perdido" ou "Encontrado"), informando nome/caracteristicas do animal, descricao, data, horario aproximado, telefone de contato, foto obrigatoria e selecao interativa de coordenadas (latitude e longitude) no mapa.
+- RF05: O sistema deve salvar novas ocorrencias com status inicial de moderacao "Pendente", impedindo exibicao previa no mapa publico.
+- RF06: O sistema deve permitir que o cidadao consulte suas proprias ocorrencias com status em tempo real e visualizacao da justificativa em caso de rejeicao.
+- RF07: O sistema deve exibir no mapa interativo publico apenas as ocorrencias com status "Aprovada", utilizando marcadores visuais diferenciados por categoria (Perdido ou Encontrado).
+- RF08: O sistema deve disponibilizar ao administrador uma fila de moderacao para aprovar chamados ou rejeita-los com preenchimento compulsorio de justificativa.
+- RF09: O sistema deve permitir ao administrador cadastrar animais acolhidos, informando nome, especie, raca, sexo, idade estimada, porte, cor, peso, data/local de resgate, foto principal e status situacional ("Disponivel", "Em tratamento", "Em processo de adocao", "Adotado", "Perdido", "Encontrado").
+- RF10: O sistema deve permitir o registro de prontuario clinico individual por animal: consultas veterinarias, laudos de exames anexados, vacinas aplicadas com data da proxima dose, medicamentos prescritos com posologia e historico de alergias.
+- RF11: O sistema deve permitir o registro de pesagens periodicas e manter uma galeria de fotos adicionais para cada animal.
+- RF12: O sistema deve permitir que cidadaos autenticados submetam solicitacoes de adocao para animais disponiveis, respondendo a perguntas sobre tipo de residencia, experiencia previa e outros animais na moradia.
+- RF13: O sistema deve permitir que a equipe do abrigo analise as solicitacoes de adocao, agende entrevistas e registre a aprovacao ou reprovacao da proposta.
+- RF14: O sistema deve permitir o registro de visitas e acompanhamentos pos-adocao com data, situacao descritiva do animal e fotos do novo lar.
+- RF15: O sistema deve registrar notificacoes internas para os usuarios referentes a atualizacao de status de seus chamados SOS e processos de adocao.
+- RF16: O sistema deve disponibilizar ao administrador a relacao de todos os usuarios cadastrados com nome, e-mail, telefone, perfil e data de criacao.
+
+======================================================================
+5. REQUISITOS NAO FUNCIONAIS (RNF)
+======================================================================
+- Seguranca da Informacao e Criptografia:
+  * Todas as senhas dos usuarios devem ser armazenadas obrigatoriamente utilizando hash criptografico seguro (Bcrypt), nunca em texto plano.
+  * Todas as consultas ao banco de dados devem utilizar exclusivamente a extensao PDO com Prepared Statements e vinculacao de parametros, eliminando vulnerabilidades de injecao de SQL (SQL Injection).
+  * Nenhuma credencial de banco de dados, chave de API ou senha sensivel deve constar em texto puro no codigo versionado no repositorio GitHub. O carregamento de credenciais locais e feito via arquivo config/local_env.php (estritamente ignorado no .gitignore), e em producao e configurado diretamente nas variaveis de ambiente do servidor web.
+  * Todas as rotas administrativas sob o diretorio /admin/ devem verificar a integridade da sessao do usuario ($_SESSION["usuario_tipo"] === 'admin'), barrando acessos nao autorizados e redirecionando para a area publica.
+- Desempenho, Usabilidade e Compatibilidade:
+  * A interface deve ser plenamente responsiva, adaptada para smartphones, tablets e desktops (Mobile-First via Flexbox/CSS Grid), permitindo a selecao de coordenadas no mapa com toques na tela movel.
+  * O upload de imagens deve ser restrito a arquivos de ate 5 MB nos formatos JPEG, PNG e WebP, gerando nomes unicos e aleatorios no servidor para evitar colisoes e sobrescrita maliciosa de arquivos.
+
+======================================================================
+6. MODELO DE DADOS (DER SIMPLES - 19 TABELAS)
+======================================================================
+O banco de dados relacional MySQL e composto por 19 tabelas organizadas em 5 modulos de negocio integrados por chaves primarias e estrangeiras:
+
+MODULO 1: USUARIOS E NOTIFICACOES
+- Tabela: usuarios
+  Colunas: id (int PK AI), nome (varchar 100), email (varchar 150 Unique), senha (varchar 255), telefone (varchar 20), tipo (enum 'admin', 'usuario'), ativo (tinyint 1), criado_em (timestamp)
+  Finalidade: Autenticacao, controle de permissoes e dados cadastrais dos usuarios.
+- Tabela: notificacoes
+  Colunas: id (int PK AI), usuario_id (int FK usuarios.id), titulo (varchar 150), mensagem (text), lida (tinyint 1), criada_em (timestamp)
+  Finalidade: Avisos e atualizacoes emitidas pela plataforma diretamente ao usuario.
+
+MODULO 2: ANIMAIS E IDENTIFICACAO
+- Tabela: animais
+  Colunas: id (int PK AI), nome (varchar 100), especie (varchar 50), raca (varchar 50), sexo (enum 'Macho', 'Femea'), idade (int), peso (decimal 5,2), cor (varchar 50), porte (enum 'Pequeno', 'Medio', 'Grande'), data_resgate (date), local_resgate (varchar 255), foto (varchar 255), status (enum 'Disponivel', 'Em tratamento', 'Em processo de adocao', 'Adotado', 'Perdido', 'Encontrado'), descricao (text), criado_em (timestamp), atualizado_em (timestamp)
+  Finalidade: Registro central dos animais acolhidos pela organizacao.
+- Tabela: fotos_animais
+  Colunas: id (int PK AI), animal_id (int FK animais.id), arquivo (varchar 255), legenda (varchar 150), enviada_em (timestamp)
+  Finalidade: Galeria de imagens adicionais de cada animal ao longo de sua estadia.
+- Tabela: historico_status_animal
+  Colunas: id (int PK AI), animal_id (int FK animais.id), status_anterior (varchar 50), status_novo (varchar 50), observacao (text), usuario_id (int FK usuarios.id), alterado_em (timestamp)
+  Finalidade: Auditoria de transicoes de situacao cadastral do animal.
+
+MODULO 3: OCORRENCIAS E SOS (RESGATE GEORREFERENCIADO)
+- Tabela: ocorrencias_sos
+  Colunas: id (int PK AI), animal_id (int FK animais.id Opcional), usuario_id (int FK usuarios.id), tipo (enum 'Perdido', 'Encontrado'), nome_animal (varchar 100), especie (varchar 50), raca (varchar 50), sexo (enum 'Macho', 'Femea', 'Nao identificado'), cor (varchar 50), porte (enum 'Pequeno', 'Medio', 'Grande'), foto (varchar 255), data_ocorrencia (date), hora_ocorrencia (time), descricao (text), local_desaparecimento (varchar 255), latitude (decimal 10,8), longitude (decimal 11,8), telefone_contato (varchar 20), status (enum 'Pendente', 'Aprovada', 'Rejeitada', 'Resolvido'), motivo_rejeicao (text), moderada_por (int FK usuarios.id), moderada_em (datetime), criado_em (timestamp), atualizado_em (timestamp)
+  Finalidade: Chamados georreferenciados de emergencia SOS para exibicao no mapa interativo.
+- Tabela: historico_status_sos
+  Colunas: id (int PK AI), ocorrencia_id (int FK ocorrencias_sos.id), usuario_id (int FK usuarios.id), status_anterior (varchar 50), status_novo (varchar 50), observacao (text), alterado_em (timestamp)
+  Finalidade: Historico de moderacao e evolucao do atendimento do chamado.
+
+MODULO 4: PRONTUARIO CLINICO VETERINARIO
+- Tabela: consultas
+  Colunas: id (int PK AI), animal_id (int FK animais.id), veterinario (varchar 150), data_consulta (date), motivo (varchar 255), diagnostico (text), observacoes (text)
+  Finalidade: Registro de consultas e atendimentos clinicos periodicos.
+- Tabela: exames
+  Colunas: id (int PK AI), animal_id (int FK animais.id), tipo (varchar 100), data_exame (date), resultado (text), veterinario (varchar 150), arquivo (varchar 255)
+  Finalidade: Laudos de exames laboratoriais e complementares.
+- Tabela: vacinas
+  Colunas: id (int PK AI), animal_id (int FK animais.id), nome_vacina (varchar 150), data_aplicacao (date), proxima_dose (date), veterinario (varchar 150), observacoes (text)
+  Finalidade: Carteira de vacinacao e agendamento de reforco de doses.
+- Tabela: medicamentos
+  Colunas: id (int PK AI), animal_id (int FK animais.id), nome (varchar 150), dosagem (varchar 100), frequencia (varchar 100), data_inicio (date), data_fim (date), veterinario (varchar 150), observacoes (text)
+  Finalidade: Prescricoes ativas e historico medicamentoso do animal.
+- Tabela: alergias
+  Colunas: id (int PK AI), animal_id (int FK animais.id), alergia (varchar 150), descricao (text)
+  Finalidade: Cadastro de alergias e contraindicacoes terapeuticas.
+- Tabela: pesos_animais
+  Colunas: id (int PK AI), animal_id (int FK animais.id), peso (decimal 5,2), data_registro (date), observacao (varchar 255)
+  Finalidade: Curva de evolucao de peso corporal do animal.
+- Tabela: historico_medico
+  Colunas: id (int PK AI), animal_id (int FK animais.id), data_atendimento (date), tipo (varchar 100), descricao (text), veterinario (varchar 150), peso (decimal 5,2), observacao (text), criado_em (timestamp)
+  Finalidade: Linha do tempo unificada de intervencoes clinicas.
+- Tabela: saude_animais
+  Colunas: id (int PK AI), animal_id (int FK animais.id), tipo (varchar 100), descricao (text), veterinario (varchar 150), data_atendimento (date), proximo_atendimento (date), observacao (text), criado_em (timestamp)
+  Finalidade: Acompanhamentos de rotina e lembretes de retorno.
+
+MODULO 5: ADOCOES E ACOMPANHAMENTO POS-ADOCAO
+- Tabela: adocoes
+  Colunas: id (int PK AI), animal_id (int FK animais.id), usuario_id (int FK usuarios.id), nome_completo (varchar 150), cpf (varchar 14), telefone (varchar 20), endereco (varchar 255), tipo_residencia (enum 'Casa', 'Apartamento', 'Chacara/Sitio'), experiencia_animais (tinyint 1), outros_animais (text), status (enum 'Solicitacao', 'Em analise', 'Entrevista', 'Aprovada', 'Reprovada', 'Concluida'), observacoes (text), data_solicitacao (datetime), data_conclusao (datetime)
+  Finalidade: Processo formal e legal de adocao responsavel.
+- Tabela: entrevistas_adocao
+  Colunas: id (int PK AI), adocao_id (int FK adocoes.id), data_entrevista (datetime), responsavel (varchar 150), resultado (enum 'Aprovado', 'Reprovado', 'Pendente'), observacoes (text)
+  Finalidade: Avaliacao qualitativa de perfil do adotante.
+- Tabela: acompanhamentos_adocao
+  Colunas: id (int PK AI), adocao_id (int FK adocoes.id), data_acompanhamento (date), responsavel (varchar 150), situacao (text), observacoes (text), foto (varchar 255)
+  Finalidade: Vistorias pos-adocao garantindo o bem-estar do animal no novo lar.
+
+RELACIONAMENTOS ESTRUTURAIS POR CHAVE ESTRANGEIRA (FK):
+- ocorrencias_sos.usuario_id referencia usuarios.id
+- ocorrencias_sos.animal_id referencia animais.id (relacionamento opcional 0..1)
+- ocorrencias_sos.moderada_por referencia usuarios.id
+- historico_status_sos.ocorrencia_id referencia ocorrencias_sos.id
+- historico_status_sos.usuario_id referencia usuarios.id
+- adocoes.animal_id referencia animais.id
+- adocoes.usuario_id referencia usuarios.id
+- entrevistas_adocao.adocao_id referencia adocoes.id
+- acompanhamentos_adocao.adocao_id referencia adocoes.id
+- consultas, exames, vacinas, medicamentos, alergias, pesos_animais, fotos_animais, historico_medico, saude_animais possuem chave estrangeira animal_id referenciando animais.id.
+- notificacoes.usuario_id referencia usuarios.id
+
+======================================================================
+7. CRITERIOS DE ACEITE (DADO QUE / QUANDO / ENTAO)
+======================================================================
+- CA01 - Autenticacao com credenciais validas:
+  Dado que o usuario possui conta ativa no sistema,
+  Quando ele informa e-mail e senha corretos na tela de login e submete o formulario,
+  Entao o sistema autentica a sessao e o redireciona para a pagina inicial (Dashboard).
+
+- CA02 - Tentativa de autenticacao com dados invalidos:
+  Dado que o usuario informa e-mail inexistente ou senha incorreta,
+  Quando submete o formulario de login,
+  Entao o sistema impede o acesso, permanece na tela de login e exibe mensagem de alerta amigavel, sem detalhar qual campo falhou.
+
+- CA03 - Protecao contra acesso indevido a area administrativa:
+  Dado que um usuario com perfil comum tenta acessar manualmente qualquer URL sob o diretorio /admin/,
+  Quando a requisicao chega ao servidor,
+  Entao o sistema bloqueia o carregamento e o redireciona automaticamente para a pagina publica.
+
+- CA04 - Envio de ocorrencia SOS com coordenadas geograficas:
+  Dado que o usuario preenche a ocorrencia com dados obrigatorios, anexa foto valida e clica no mapa Leaflet gerando latitude e longitude,
+  Quando confirma o envio,
+  Entao a ocorrencia e gravada no banco com status "Pendente" e o chamado entra na fila de analise da equipe.
+
+- CA05 - Moderacao com aprovacao da ocorrencia:
+  Dado que o administrador analisa uma ocorrencia pendente e clica em "Aprovar ocorrencia",
+  Quando a requisicao e concluida,
+  Entao o status muda para "Aprovada" e a ocorrencia passa a ser exibida imediatamente no mapa publico com marcador georreferenciado.
+
+- CA06 - Moderacao com rejeicao e justificativa obrigatoria:
+  Dado que o administrador decide recusar uma ocorrencia e informa a justificativa textual no campo correspondente,
+  Quando submete a decisao,
+  Entao o status muda para "Rejeitada", a ocorrencia nao e exibida no mapa publico e o motivo fica disponivel para o autor em "Minhas Ocorrencias".
+
+- CA07 - Bloqueio de rejeicao sem justificativa:
+  Dado que o administrador tenta rejeitar uma ocorrencia sem informar o motivo,
+  Quando clica em enviar,
+  Entao o sistema bloqueia a requisicao e exige que a justificativa seja devidamente preenchida.
+
+- CA08 - Cadastro de novo animal acolhido:
+  Dado que o administrador preenche o formulario de animais com foto e dados cadastrais validos,
+  Quando salva o formulario,
+  Entao o registro e persistido na tabela animais e passa a constar na listagem geral da organizacao.
+
+- CA09 - Inclusao de atendimento no prontuario veterinario:
+  Dado que o profissional cadastra uma vacina ou consulta para um animal,
+  Quando envia os dados clinicos,
+  Entao o registro e gravado com vinculo por chave estrangeira aquele animal e passa a compor seu historico de saude.
+
+- CA10 - Submissao de proposta de adocao:
+  Dado que um cidadao autenticado clica em um animal com status "Disponivel" e envia o questionario de adocao preenchido,
+  Quando submete o pedido,
+  Entao o sistema cria o registro na tabela adocoes com status "Solicitacao" e disponibiliza a proposta para analise da equipe.
+
+- CA11 - Acompanhamento pos-adocao:
+  Dado que a equipe realiza visita de adaptacao ao novo lar,
+  Quando anexa fotos e relato no formulario de acompanhamento,
+  Entao o registro e gravado com vinculo a adocao para fins de comprovacao e monitoramento.
+
+======================================================================
+8. DECISAO DE STACK, FUNCIONAMENTO PRATICO E ROTEIRO DE EXECUCAO
+======================================================================
+8.1 Stack Tecnologica Adotada:
+- Backend: PHP 8 (arquitetura modular com conexao PDO, validacao estrita no servidor e Prepared Statements).
+- Banco de Dados: MySQL / MariaDB (integridade referencial por chaves primarias e estrangeiras, charset UTF-8 mb4).
+- Frontend: HTML5 semantico, CSS3 responsivo (Flexbox e CSS Grid nativos) e JavaScript puro (ES6+).
+- Mapas e Geolocalizacao: Leaflet.js v1.9.4 integrado a camada de tiles do OpenStreetMap.
+- Versionamento: Git e repositorio publico no GitHub: https://github.com/anacarolinaferreira02/gestao_animais
+- Hospedagem em Nuvem: Provedor gratuito InfinityFree (Apache + PHP 8 + MySQL remoto).
+
+8.2 Como o Sistema Funciona na Pratica (Fluxos Operacionais):
+1. Ciclo do Cidadao (Resgate e Adocao):
+   - O cidadao acessa o sistema pelo computador ou celular.
+   - Ao presenciar um animal perdido ou em risco na rua, clica em "Registrar Ocorrencia", preenche as caracteristicas, adiciona a foto tirada pelo celular e clica no mapa Leaflet para fixar as coordenadas exatas da rua/bairro em Porto Velho.
+   - O chamado e registrado e aguarda verificacao da equipe do abrigo para evitar trotes ou dados falsos. O cidadao pode consultar "Minhas Ocorrencias" a qualquer momento para acompanhar a evolucao do chamado.
+   - No mapa publico, qualquer pessoa pode visualizar animais perdidos e encontrados na sua regiao com fotos e telefone de contato para devolucao.
+   - Cidadaos interessados em adotar consultam a galeria de animais acolhidos e submetem propostas pelo formulario online.
+
+2. Ciclo da Equipe do Abrigo (Gestao e Atendimento Clinico):
+   - A equipe faz login com credenciais de administrador e visualiza o painel de controle restrito (/admin).
+   - Na fila de moderacao SOS, checa as ocorrencias pendentes enviadas pelos cidadaos. Se aprovada, o animal passa a figurar no mapa publico; se rejeitada (ex: foto ilegivel ou trote), a justificativa e registrada e notificada ao usuario.
+   - No modulo de animais, a equipe cadastra todos os animais acolhidos, mantem fotos e atualiza o status situacional.
+   - Na area clinica, o veterinario registra cada consulta realizada, laudos de exames, peso, medicamentos e controle de vacinacao (com data de aplicacao e data prevista para a proxima dose).
+   - No modulo de adocao, a equipe avalia as propostas dos cidadaos, agenda entrevistas e, apos a aprovacao, registra termos e acompanhamentos periodicos pos-adocao com fotos de vistoria no novo lar.
+
+8.3 Como o Sistema Roda no Computador (Ambiente Local com XAMPP):
+O sistema foi desenvolvido e validado para rodar no ambiente local Windows por meio do pacote integrado XAMPP:
+
+1. Localizacao dos Arquivos:
+   - O projeto deve estar alocado dentro do diretorio raiz do servidor Apache local:
+     C:\xampp\htdocs\gestao_animais
+   - O repositorio pode ser clonado via Git ou os arquivos descompactados diretamente nesta pasta:
+     cd C:\xampp\htdocs
+     git clone https://github.com/anacarolinaferreira02/gestao_animais.git
+
+2. Inicializacao dos Servicos no XAMPP:
+   - Abrir o XAMPP Control Panel no Windows.
+   - Clicar no botao Start correspondente ao modulo Apache (porta padrao: 80 / 443).
+   - Clicar no botao Start correspondente ao modulo MySQL (porta padrao: 3306).
+   - Ambos os modulos devem exibir indicador verde indicando execucao com sucesso.
+
+3. Criacao e Importacao da Base de Dados:
+   - Abrir o navegador e acessar o phpMyAdmin local: http://localhost/phpmyadmin
+   - Clicar em Novo, informar o nome da base de dados como gestao_animais e selecionar o agrupamento utf8mb4_unicode_ci.
+   - Clicar na aba Importar, selecionar o arquivo C:\xampp\htdocs\gestao_animais\schema.sql e clicar em Executar.
+   - As tabelas e os dados iniciais do administrador serao criados automaticamente.
+
+4. Configuracao de Conexao Local e Isolamento de Senhas:
+   - O arquivo config/conexao.php foi arquitetado para carregar automaticamente o arquivo config/local_env.php caso ele exista no computador.
+   - Para rodar no ambiente local do aluno com senha no MySQL, basta criar o arquivo config/local_env.php contendo:
+     <?php
+     putenv("DB_HOST=localhost");
+     putenv("DB_PORT=3306");
+     putenv("DB_NAME=gestao_animais");
+     putenv("DB_USER=root");
+     putenv("DB_PASS=alunoifro"); // ou vazio ("") conforme configurado no XAMPP local
+   - O arquivo config/local_env.php esta explicitamente incluso no .gitignore, cumprindo integralmente as exigencias de seguranca do Anexo B da apostila (reprovacao automatica em caso de senhas no GitHub).
+
+5. Acesso a Aplicacao no Navegador:
+   - Pagina inicial publica: http://localhost/gestao_animais/index.php
+   - Teste de conexao direta com o banco: http://localhost/gestao_animais/teste.php (exibe: "Conexao com o banco realizada com sucesso!").
+   - Painel Administrativo: http://localhost/gestao_animais/login.php autenticando com perfil de administrador.
+
+8.4 Como o Sistema Roda na Nuvem (Deploy em Producao no InfinityFree):
+Conforme orienta a Fase 6, item 8 da apostila do Professor Rafael Pitwak, a aplicacao esta publicada e operacional no provedor gratuito InfinityFree:
+- URL Publica do Sistema: http://gestao-animais.infinityfreeapp.com
+- Servidor Web Remoto: Apache com suporte nativo a PHP 8 e mod_rewrite.
+- Host do Banco de Dados Remoto: sql311.infinityfree.com
+- Nome do Banco Remoto: if0_42984854_gestao_animais
+- Usuario do Banco Remoto: if0_42984854
+- Script de Importacao Remoto: Foi utilizado o script otimizado importar_infinityfree.sql, compativel com os limites de permissoes de bancos compartilhados.
+- Seguranca de Credenciais na Nuvem: No ambiente remoto, as credenciais sao injetadas diretamente por variaveis de ambiente do servidor, assegurando que o codigo publico versionado no GitHub nao contenha senhas expostas.
